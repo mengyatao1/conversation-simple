@@ -9,7 +9,8 @@ var ConversationPanel = (function() {
       chatBox: '#scrollingChat',
       fromUser: '.from-user',
       fromWatson: '.from-watson',
-      latest: '.latest'
+      latest: '.latest',
+      loader: '#loader'
     },
     authorTypes: {
       user: 'user',
@@ -117,6 +118,7 @@ var ConversationPanel = (function() {
     var isUser = isUserMessage(typeValue);
     var textExists = (newPayload.input && newPayload.input.text)
       || (newPayload.output && newPayload.output.text);
+    	
     if (isUser !== null && textExists) {
       // Create new message DOM element
       var messageDivs = buildMessageDomElements(newPayload, isUser);
@@ -124,6 +126,7 @@ var ConversationPanel = (function() {
       var previousLatest = chatBoxElement.querySelectorAll((isUser
               ? settings.selectors.fromUser : settings.selectors.fromWatson)
               + settings.selectors.latest);
+
       // Previous "latest" message is no longer the most recent
       if (previousLatest) {
         Common.listForEach(previousLatest, function(element) {
@@ -136,6 +139,17 @@ var ConversationPanel = (function() {
         // Class to start fade in animation
         currentDiv.classList.add('load');
       });
+
+      var loaderElement = document.querySelector(settings.selectors.loader);
+      
+      chatBoxElement.removeChild(loaderElement);
+      chatBoxElement.appendChild(loaderElement);
+      if (isUser==true) {   
+      	loaderElement.style.display="block";
+	  }
+      else {
+      	loaderElement.style.display="none";
+      }
       // Move chat to the most recent messages when new messages are added
       scrollToChatBottom();
     }
