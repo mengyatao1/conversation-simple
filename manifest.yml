@@ -4,7 +4,7 @@ declared-services:
     label: Conversation-f4
     plan: free
 applications:
-- name: conversation-simple
+- name: ChatNode20170307
   command: npm start
   path: .
   memory: 256M
