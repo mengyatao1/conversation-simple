@@ -108,6 +108,11 @@ div {
   margin-top: 0.3125rem;
 }
 
+.loader {
+  width: 100%;
+  text-align: center;
+}
+
 .from-user {
   text-align: right;
 }
